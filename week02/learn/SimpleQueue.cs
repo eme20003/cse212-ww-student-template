@@ -53,6 +53,9 @@
     /// Enqueue the value provided into the queue
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
+    /// 
+    /* ----------------------------------- */
+
     private void Enqueue(int value) {
         _queue.Insert(0, value);
     }
@@ -66,8 +69,14 @@
         if (_queue.Count <= 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+//issue: index out of range
+//stated it was on these 2 lines below (in error code)
+//looking at it we were looking at index 1, when before we assigned the value to index 0
+//so it seems to me like we were just looking at the wrong index and all we needed to do
+//was ensure that it looked at index 0.  Makes me wonder if there is a way we don't need to 
+//put in just a 0, but perhaps add a variable that can be the index value for us? 
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
