@@ -1,4 +1,6 @@
+using System.Diagnostics.Metrics;
 using System.Text.Json;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 
 public static class SetsAndMaps
 {
@@ -22,7 +24,24 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var set = new HashSet<string>();
+        var newList = new List<string>();
+
+        foreach(string word in words)
+        {
+            char[] charArray = word.ToCharArray(); 
+            Array.Reverse(charArray);
+            string reverseWord = new string(charArray);
+            
+
+            if(set.Contains(reverseWord) && reverseWord != word)
+            {
+                newList.Add(word + "&" + reverseWord);
+                set.Remove(word);
+                set.Remove(reverseWord);
+            }
+        }
+        return newList.ToArray();
     }
 
     /// <summary>
@@ -43,6 +62,7 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            
         }
 
         return degrees;
