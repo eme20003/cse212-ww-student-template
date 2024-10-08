@@ -1,5 +1,6 @@
 using System.Diagnostics.Metrics;
 using System.Text.Json;
+using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 
 public static class SetsAndMaps
@@ -62,6 +63,14 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            string degree = fields[3];
+
+            if(!degrees.ContainsKey(degree)){
+                degrees[degree] =1;
+            }
+            else{
+                degrees[degree] += 1;
+            }
             
         }
 
@@ -87,6 +96,28 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
+
+        var anagrams = new Dictionary<char, int>();
+        var newstring = word1 + word2;
+
+        foreach(char letter in newstring){
+            if (! anagrams.ContainsKey(letter))
+            {
+                anagrams[letter] = 1;
+            }
+            else
+            {
+                anagrams[letter] += 1;
+            }
+        }
+
+        foreach (var count in anagrams.Values)
+        {
+            if (count > 1)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
