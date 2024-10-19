@@ -15,7 +15,13 @@ public static class Recursion
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
-        return 0;
+        if(n == 1)
+        {
+            return 1;
+        }
+        else
+
+        return n + SumSquaresRecursive(n^2);
     }
 
     /// <summary>
@@ -40,6 +46,20 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+
+        if (letters.Length == size)
+        {
+            results.Add(word);
+            return;
+        }
+        else
+        {
+            for(var i = 0; i < letters.Length; i++)
+            {
+                var lettersLeft = letters.Remove(i, 1);
+                PermutationsChoose(results, lettersLeft, size, word + letters[i]);
+            }
+        }
     }
 
     /// <summary>
@@ -98,6 +118,13 @@ public static class Recursion
 
         // TODO Start Problem 3
 
+        if (remember == null)
+        
+            remember = new Dictionary<int, decimal>();
+        
+        if (remember.ContainsKey(s))
+        return remember[s];
+
         // Solve using recursion
         decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
         return ways;
@@ -119,6 +146,21 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+    int wildcard = pattern.IndexOf('*');
+    
+    // Base case: If no wildcard '*' is found, add the complete pattern to results
+    if (wildcard == -1)
+    {
+        results.Add(pattern);
+        return;
+    }
+
+    string patternWithZero = pattern[..wildcard] + '0' + pattern[(wildcard + 1)..];
+    string patternWithOne = pattern[..wildcard] + '1' + pattern[(wildcard + 1)..];
+
+
+    WildcardBinary(patternWithZero, results);
+    WildcardBinary(patternWithOne, results);
     }
 
     /// <summary>
